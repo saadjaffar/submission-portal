@@ -1,0 +1,40 @@
+   <!doctype html>
+   <html lang="en">
+   <head>
+     <meta charset="utf-8">
+     <title>Submission Portal Demo</title>
+     <style>
+       body { font-family: Arial, sans-serif; max-width: 700px; margin: 30px auto; padding: 0 16px; }
+       input { display: block; width: 100%; padding: 8px; margin: 6px 0 12px; box-sizing: border-box; }
+       #err { color: #9b1c1c; }
+       li { margin: 6px 0; }
+     </style>
+   </head>
+   <body>
+     <h1>Assignment Submission Portal (Demo)</h1>
+     <p id="err"></p>
+     <input id="name" placeholder="Name">
+     <input id="reg" placeholder="Registration number">
+     <input id="title" placeholder="Assignment title">
+     <input id="url" placeholder="Submission URL">
+     <button onclick="add()">Submit</button>
+     <h2>Submissions</h2>
+     <ul id="list"></ul>
+     <script>
+       function validUrl(u) {
+         try { const x = new URL(u); return x.protocol === "http:" || x.protocol === "https:"; }
+         catch { return false; }
+       }
+       function add() {
+         const v = id => document.getElementById(id).value.trim();
+         const err = document.getElementById("err");
+         if (!v("name") || !v("reg") || !v("title") || !v("url")) { err.textContent = "All fields are required."; return; }
+         if (!validUrl(v("url"))) { err.textContent = "Enter a valid URL."; return; }
+         err.textContent = "";
+         const li = document.createElement("li");
+         li.textContent = `${v("name")} (${v("reg")}) - ${v("title")} - ${v("url")}`;
+         document.getElementById("list").appendChild(li);
+       }
+     </script>
+   </body>
+   </html>
