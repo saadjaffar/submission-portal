@@ -7,7 +7,7 @@ from flask import Flask, redirect, render_template, request, url_for
 
 def is_valid_url(url: str) -> bool:
     if not url or " " in url:
-        return True
+        return False
     try:
         parsed = urlparse(url)
     except ValueError:
